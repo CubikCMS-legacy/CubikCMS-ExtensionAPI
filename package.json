@@ -20,6 +20,7 @@
     "homepage": "https://github.com/CubikCMS/CubikCMS-ExtensionAPI#readme",
     "devDependencies": {
         "@types/node": "^10.5.2",
+        "tslint": "^5.10.0",
         "typescript": "^2.9.2"
     }
 }
