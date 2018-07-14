@@ -18,7 +18,8 @@
                 },
                 "esSpecCompliant": true
             }
-        ]
+        ],
+        "no-namespace": false
     },
     "rulesDirectory": []
 }

@@ -1,0 +1,25 @@
+{
+    "name": "cubikcms",
+    "version": "0.0.1",
+    "description": "CubikCMS Extension API",
+    "main": "out/index.js",
+    "scripts": {
+        "build": "tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CubikCMS/CubikCMS-ExtensionAPI.git"
+    },
+    "typings": "./cubikcms.d.ts",
+    "author": "CubikCMS",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/CubikCMS/CubikCMS-ExtensionAPI/issues"
+    },
+    "homepage": "https://github.com/CubikCMS/CubikCMS-ExtensionAPI#readme",
+    "devDependencies": {
+        "@types/node": "^10.5.2",
+        "typescript": "^2.9.2"
+    }
+}
