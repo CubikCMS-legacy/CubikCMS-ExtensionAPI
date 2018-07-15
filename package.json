@@ -2,8 +2,9 @@
     "name": "cubikcms",
     "version": "0.0.1",
     "description": "CubikCMS Extension API",
-    "main": "out/index.js",
+    "main": "build/index.js",
     "scripts": {
+        "install": "tsc",
         "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -11,7 +12,6 @@
         "type": "git",
         "url": "git+https://github.com/CubikCMS/CubikCMS-ExtensionAPI.git"
     },
-    "typings": "./cubikcms.d.ts",
     "author": "CubikCMS",
     "license": "GPL-3.0",
     "bugs": {
