@@ -1,10 +1,9 @@
 import { EventCode } from "../extensionCodes";
-import { listen } from "../parentMessages";
+import { listen } from "../helpers/messengers/parentMessenger";
 
 export function onReady(listener: () => void) {
-    listen("event", ({code}) => {
-        if (code === EventCode.CORE_READY) {
-            listener();
-        }
-    });
+    listen({
+        cmd: "emitEvent",
+        code: EventCode.CORE_READY,
+    }, ({code}) => listener());
 }

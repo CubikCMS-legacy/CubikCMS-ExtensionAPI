@@ -1,10 +1,16 @@
 import { randomBytes } from "crypto";
-import { Message } from "./parentMessages";
+import { hasEntriesInObject } from "../objectHelpers";
 
 export interface Message {
-    type: string;
+    cmd: string;
     code: string;
     values: any[];
+    token?: string;
+}
+export interface MessageMatch {
+    cmd?: string;
+    code?: string;
+    values?: any[];
     token?: string;
 }
 
@@ -14,25 +20,25 @@ export function send(msg: Message) {
     }
 }
 
-export function listen(searchedType: string, listener: (msg: Message) => boolean | void) {
+export function listen(match: MessageMatch, listener: (msg: Message) => boolean | void) {
 
     function messageListener(message: Message) {
         // If not an object, niet.
         if (typeof message !== "object") { return; }
 
-        const { type, code, values } = message;
+        const { cmd, code, values } = message;
 
-        // If type is not a string
-        if (typeof type !== "string") { return; }
-        // If current type is not what wee're looking for or "any", stop looking message.
-        if (type !== searchedType && searchedType !== "any") { return; }
+        // If cmd is not a string
+        if (typeof cmd !== "string") { return; }
+        // If matched properties are in the message
+        if (hasEntriesInObject(match, message)) { return; }
         // If code is not a string, stop.
         if (typeof code !== "string") { return; }
         // If values are not in array
         if (typeof values === "undefined" || values ! instanceof Array) { return; }
 
         // Call the listener with the data
-        const stillLoop = listener({type, code, values});
+        const stillLoop = listener({cmd, code, values});
 
         if (stillLoop === false) {
             process.removeListener("message", messageListener);
@@ -48,18 +54,16 @@ export function get(code: string, ...values: any[]) {
             const genToken = buffer.toString("hex");
 
             send({
+                cmd: "requestInformation",
                 code,
                 token: genToken,
-                type: "request",
                 values,
             });
 
-            listen("response", (msg) => {
-                if (msg.token === genToken) {
-                    resolve(msg);
-                    return false;
-                }
-            });
+            listen({
+                cmd: "retrieveInformation",
+                token: genToken,
+            }, (msg) => resolve(msg));
         });
     });
 }

@@ -1,21 +1,19 @@
 import { EventCode } from "../extensionCodes";
-import { get, listen } from "../parentMessages";
+import { get, listen } from "../helpers/messengers/parentMessenger";
 import { RequestCode } from "./../extensionCodes";
 
 export function onLoad(listener: () => void) {
-    listen("event", ({code}) => {
-        if (code === EventCode.EXTENSION_LOAD) {
-            listener();
-        }
-    });
+    listen({
+        cmd: "emitEvent",
+        code: EventCode.EXTENSION_LOAD,
+    }, ({code}) => listener());
 }
 
 export function onUnload(listener: () => void) {
-    listen("event", ({code}) => {
-        if (code === EventCode.EXTENSION_UNLOAD) {
-            listener();
-        }
-    });
+    listen({
+        cmd: "emitEvent",
+        code: EventCode.EXTENSION_UNLOAD,
+    }, ({code}) => listener());
 }
 
 export async function getLoadedExtensions() {
