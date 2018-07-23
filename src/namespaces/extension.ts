@@ -1,5 +1,5 @@
 import { EventCode } from "../extensionCodes";
-import { get, listen } from "../helpers/messengers/parentMessenger";
+import { get, listen, Message } from "../helpers/messengers/parentMessenger";
 import { RequestCode } from "./../extensionCodes";
 
 export function onLoad(listener: () => void) {
@@ -16,6 +16,6 @@ export function onUnload(listener: () => void) {
     }, ({code}) => listener());
 }
 
-export async function getLoadedExtensions() {
+export async function getLoadedExtensions(): Promise<Message> {
     return get(RequestCode.GET_EXTENSIONS);
 }
