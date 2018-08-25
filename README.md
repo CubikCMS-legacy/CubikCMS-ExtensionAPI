@@ -1,1 +1,1 @@
-CubikCMS_ExtensionAPI
+# CubikCMS Extension API
